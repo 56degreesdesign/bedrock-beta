@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title><?= wp_get_document_title() ?></title>
 		<script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, 'js');</script>
+		<?php ($_ENV['WP_ENV'] !== 'development') ? get_template_part('templates/partials/prod-tags') : ''; ?>
 		<?php wp_head() ?>
 	</head>
 	<body <?php body_class() ?>>

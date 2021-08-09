@@ -9,11 +9,20 @@ const ExampleModule2 = require('./components/example-2');
 import ReplaceObfuscatedEmailAddresses from "./components/ReplaceObfuscatedEmailAddresses";
 import AnimateOnPageLinks from "./components/AnimateOnPageLinks";
 
+// LazyLoad - https://github.com/aFarkas/lazysizes
+import 'lazysizes';
+// import a plugin
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
+
+const fSmoothScroll = require('./utils/smooth-scroll');
+
 
 // Initialise our components on jQuery.ready…
-// jQuery(function ($) {
-//     ExampleComponent1.init();
-//     ExampleModule2.init();
-//     ReplaceObfuscatedEmailAddresses.init();
-//     AnimateOnPageLinks.init();
-// });
+jQuery(function ($) {
+    // ExampleComponent1.init();
+    // ExampleModule2.init();
+    // ReplaceObfuscatedEmailAddresses.init();
+    // AnimateOnPageLinks.init();
+
+    fSmoothScroll();
+});
