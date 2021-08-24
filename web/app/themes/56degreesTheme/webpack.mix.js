@@ -30,4 +30,14 @@ mix.sass('assets/scss/app.scss', 'css');
 if (mix.inProduction()) {
     mix.versionHash();
     mix.sourceMaps();
+} else {
+    mix.browserSync({
+        watch: true,
+        proxy: 'http://newtheme.local',
+        files: [
+            "**/*.css",
+            "**/*.js",
+            "**/*.php"
+        ]
+    });
 }
