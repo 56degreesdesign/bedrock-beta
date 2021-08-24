@@ -20,3 +20,6 @@ $loader->addNamespace( 'FsDegreesTheme', get_stylesheet_directory() . '/app' );
 View::$view_dir = get_stylesheet_directory() . '/templates/views';
 
 require get_stylesheet_directory() . '/includes/scripts-and-styles.php';
+require get_stylesheet_directory() . '/includes/no-emoji.php';
+require get_stylesheet_directory() . '/includes/svg-support.php';
+require get_stylesheet_directory() . '/includes/no-admin-bar.php';

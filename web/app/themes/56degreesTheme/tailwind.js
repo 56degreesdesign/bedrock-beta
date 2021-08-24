@@ -41,7 +41,9 @@ module.exports = {
         textColor: ['responsive', 'hover', 'focus', 'visited'],
     },
     plugins: [
-        ({addUtilities}) => {
+        ({
+            addUtilities
+        }) => {
             const utils = {
                 '.translate-x-half': {
                     transform: 'translateX(50%)',
