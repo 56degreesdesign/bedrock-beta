@@ -32,6 +32,8 @@
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
-    "lazysizes": "^5.3.2"
+    "lazysizes": "^5.3.2",
+    "swiper": "^6.8.2",
+    "vue": "^2.6.14"
   }
 }

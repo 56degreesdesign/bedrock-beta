@@ -10,7 +10,15 @@ add_filter( 'xmlrpc_enabled', '__return_false' );
 remove_filter( 'the_excerpt', 'wpautop' );
 
 /* Theme Menus. */
-register_nav_menu('fs_nav_menu', 'Navbar Main Menu');
+function register_fs_menus() {
+	register_nav_menus(
+	  array(
+		'fs_nav_menu' => __( 'Navbar Main Menu' ),
+		'fs_footer_menu' => __( 'Footer Main Menu' )
+	   )
+	 );
+   }
+add_action( 'init', 'register_fs_menus' );
 
 /* Images Sizes. */
 add_image_size( 'largeRetina', 2048, 0, true );
@@ -97,3 +105,11 @@ function fsdegrees_init_actions() {
 		'index.php?s=$matches[1]&sin=$matches[3]&paged=$matches[5]',
 		'top' );		
 }
+
+/* Remove WP Revisions */
+function fsdegrees_disable_post_revisions() {
+    foreach ( get_post_types() as $post_type ) {
+        remove_post_type_support( $post_type, 'revisions' );
+    }
+}
+add_action( 'init', 'fsdegrees_disable_post_revisions', 999 );

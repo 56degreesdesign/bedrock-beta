@@ -28,6 +28,6 @@ mix.js('assets/js/app.js', 'js');
 mix.sass('assets/scss/app.scss', 'css');
 
 if (mix.inProduction()) {
-    mix.versionHash();
+    // mix.versionHash();
     mix.sourceMaps();
 }

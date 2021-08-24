@@ -135,25 +135,6 @@
                     "ui_off_text": ""
                 }
             ]
-        },
-        {
-            "key": "field_611136ae139fc",
-            "label": "WP Pusher Test",
-            "name": "wp_pusher_test",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
         }
     ],
     "location": [
@@ -173,5 +154,5 @@
     "hide_on_screen": "",
     "active": 0,
     "description": "",
-    "modified": 1628518072
+    "modified": 1628519815
 }
