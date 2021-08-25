@@ -1,5 +1,7 @@
+const mix = require('laravel-mix');
+
 module.exports = {
-    mode: 'jit',
+    mode: (mix.inProduction()) ? 'jit' : '',
     future: {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
