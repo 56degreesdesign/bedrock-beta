@@ -25,19 +25,21 @@ if (local.proxy) {
 
 mix.tailwind();
 mix.js('assets/js/app.js', 'js');
-mix.sass('assets/scss/app.scss', 'css');
+mix.sass('assets/scss/app.scss', 'css').options({
+    processCssUrls: false
+});
 
 if (mix.inProduction()) {
     // mix.versionHash();
     mix.sourceMaps();
 } else {
-    mix.browserSync({
-        watch: true,
-        proxy: 'http://newtheme.local',
-        files: [
-            "**/*.css",
-            "**/*.js",
-            "**/*.php"
-        ]
-    });
+    // mix.browserSync({
+    //     watch: true,
+    //     proxy: 'http://accuweather.local',
+    //     files: [
+    //         "**/*.css",
+    //         "**/*.js",
+    //         "**/*.php"
+    //     ]
+    // });
 }

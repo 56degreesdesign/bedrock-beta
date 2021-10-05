@@ -1,10 +1,11 @@
 <?php
+$data = $args['data'] ?? false;
 $class = $args['class'] ?? '';
 $id = $args['id'] ?? '';
 $title = $args['title'] ?? '';
 $text = $args['text'] ?? '';
 ?>
-<div class="ExampleView <?= $class ?>" id="<?= $id ?>">
+<div class="example-view <?= $class ?>" id="<?= $id ?>">
 
 	<?php if ( $title ): ?>
 		<h2 class="pt-8 text-2xl font-extrabold text-white sm:text-3xl"><?= $title ?></h2>

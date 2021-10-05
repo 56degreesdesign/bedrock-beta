@@ -19,7 +19,13 @@ $loader->addNamespace( 'FsDegreesTheme', get_stylesheet_directory() . '/app' );
 
 View::$view_dir = get_stylesheet_directory() . '/templates/views';
 
+// require get_stylesheet_directory() . '/includes/utils/post-types/post-name.php';
+// require get_stylesheet_directory() . '/includes/utils/taxonomies/taxonomy-name.php';
+
+require get_stylesheet_directory() . '/includes/utils/cf7-button.php';
+require get_stylesheet_directory() . '/includes/utils/google-maps-api.php';
+require get_stylesheet_directory() . '/includes/utils/shortcodes.php';
+
 require get_stylesheet_directory() . '/includes/scripts-and-styles.php';
-require get_stylesheet_directory() . '/includes/no-emoji.php';
-require get_stylesheet_directory() . '/includes/svg-support.php';
-require get_stylesheet_directory() . '/includes/no-admin-bar.php';
+require get_stylesheet_directory() . '/includes/wp-theme-support.php';
+require get_stylesheet_directory() . '/includes/api.php';

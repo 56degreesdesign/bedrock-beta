@@ -6,6 +6,9 @@ module.exports = {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
     },
+    corePlugins: {
+        container: false
+    },
     purge: {
         content: [
             './*.php',
@@ -20,10 +23,23 @@ module.exports = {
         },
     },
     theme: {
-        container: {
-            center: true,
-            padding: '1.5rem',
-        },
+        // colors: {
+        //     // Base colors
+        //     transparent: 'transparent',
+        //     black: colors.black,
+        //     white: colors.white,
+        //     // Custom Colors
+        //     light: '#F1F1F1',
+        //     gray: '#E9E9E9',
+        //     'light-gray': '#838383',
+        //     pink: '#FA3069',
+        //     blue: '#3D3DA8',
+        //     purple: '#5151D6'
+        // },
+        // fontFamily: {
+        //     'book': ['Gotham Book'],
+        //     'bold': ['Gotham'],
+        // },
         extend: {
             colors: {
                 link: {
@@ -52,6 +68,32 @@ module.exports = {
                 },
             };
             addUtilities(utils, ['responsive'])
+        },
+        function ({
+            addComponents
+        }) {
+            addComponents({
+                '.container': {
+                    width: '100%',
+                    maxWidth: '1821px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    paddingLeft: '2rem',
+                    paddingRight: '2rem',
+                    // '@screen sm': {
+                    //   maxWidth: '640px',
+                    // },
+                    // '@screen md': {
+                    //   maxWidth: '768px',
+                    // },
+                    // '@screen lg': {
+                    //   maxWidth: '1024px',
+                    // },
+                    // '@screen xl': {
+                    //   maxWidth: '1280px',
+                    // },
+                }
+            })
         }
     ]
 };

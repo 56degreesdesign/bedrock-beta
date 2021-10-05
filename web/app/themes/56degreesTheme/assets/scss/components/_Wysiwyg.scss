@@ -6,17 +6,17 @@
 // The main point of this is to keep these out of the global base styles in order to leverage the
 // full power of TailwindCSS in areas of the site that are not dynamically generated markup.
 
-$module: '.Wysiwyg';
+$module: '.wysiwyg';
 #{$module} {
-  @extend .WysiwygAnchors;
-  @extend .WysiwygHeadings;
-  @extend .WysiwygImages;
-  @extend .WysiwygCode;
-  @extend .WysiwygSpacing;
-  @extend .WysiwygLists;
+  @extend .wysiwyg-anchors;
+  @extend .wysiwyg-headings;
+  @extend .wysiwyg-images;
+  @extend .wysiwyg-code;
+  @extend .wysiwyg-spacing;
+  @extend .wysiwyg-lists;
 }
 
-$module: '.WysiwygAnchors';
+$module: '.wysiwyg-anchors';
 #{$module} {
   a {
     &, &:visited {
@@ -42,7 +42,7 @@ $module: '.WysiwygAnchors';
   }
 }
 
-$module: '.WysiwygHeadings';
+$module: '.wysiwyg-headings';
 #{$module} {
   h1, h2, h3, h4, h5, h6 {
     @apply font-sans font-semibold text-black leading-tight;
@@ -61,7 +61,7 @@ $module: '.WysiwygHeadings';
   }
 }
 
-$module: '.WysiwygImages';
+$module: '.wysiwyg-images';
 #{$module} {
   img.aligncenter {
     @apply block mx-auto;
@@ -87,21 +87,21 @@ $module: '.WysiwygImages';
   }
 }
 
-$module: '.WysiwygCode';
+$module: '.wysiwyg-code';
 #{$module} {
   code {
     @apply font-mono inline-block px-1 rounded-sm text-sm align-baseline bg-pink-100 text-pink-600;
   }
 }
 
-$module: '.WysiwygSpacing';
+$module: '.wysiwyg-spacing';
 #{$module} {
   p, ul, ol, hr, .wp-block-embed, .gallery, [class*="wp-image-"] {
     @apply my-8;
   }
 }
 
-$module: '.WysiwygLists';
+$module: '.wysiwyg-lists';
 #{$module} {
   ul, ol {
     @apply ml-6 list-outside m-trim;

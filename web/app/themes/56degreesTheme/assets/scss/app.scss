@@ -1,8 +1,19 @@
 @import "lib/mixins";
+@import "lib/fonts";
+
 @import "~tailwindcss/base";
-@import "partials/base";
-@import "partials/animations";
+@import "theme/base";
+
+@import "lib/animations";
 @import "~tailwindcss/components";
-@import "partials/components";
+
+@import "lib/utilities";
 @import "~tailwindcss/utilities";
-@import "partials/utilities";
+
+@import "theme/typography";
+
+@import "theme/header"; 
+@import "theme/footer";
+
+@import "theme/components";
+@import "theme/sections";

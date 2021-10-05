@@ -19,7 +19,7 @@ if (!function_exists('fsDegrees_cf7_button_handler')) {
         $class = wpcf7_form_controls_class($tag->type);
         $atts = array();
         $atts['class'] = $tag->get_class_option($class);
-        $atts['class'] .= ' twentysixteen-child-custom-btn';
+        $atts['class'] .= ' fsDegrees-btn';
         $atts['id'] = $tag->get_id_option();
         $atts['tabindex'] = $tag->get_option('tabindex', 'int', true);
         $value = isset($tag->values[0]) ? $tag->values[0] : '';
@@ -30,7 +30,7 @@ if (!function_exists('fsDegrees_cf7_button_handler')) {
 
         $atts['type'] = 'submit';
         $atts = wpcf7_format_atts($atts);
-        $html = sprintf('<button class="btn"><span>%2$s</span><svg xmlns="http://www.w3.org/2000/svg" width="34.4" height="13.322"><path data-name="Path 195" d="M27.546.354l6.148 6.148-6.467 6.467m6.467-6.467H0" fill="none" stroke="#fff" stroke-miterlimit="10"/></svg></button>', $atts, $value);
+        $html = sprintf('<button class="btn">%2$s</button>', $atts, $value);
         
         return $html;
     }
