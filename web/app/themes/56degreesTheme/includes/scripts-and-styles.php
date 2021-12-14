@@ -16,3 +16,14 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_script( 'app' );
 
 } );
+
+function defer_parsing_of_js ( $url ) {
+
+    if( !is_admin() ) {
+        if ( FALSE === strpos( $url, '.js' ) ) return $url;
+        if ( strpos( $url, 'jquery.js' ) ) return $url;
+        return "$url' defer '";
+    } else { return $url;  }
+
+}
+add_filter( 'clean_url', 'defer_parsing_of_js', 11, 1 );

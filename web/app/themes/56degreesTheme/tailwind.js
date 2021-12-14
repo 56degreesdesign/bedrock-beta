@@ -41,12 +41,6 @@ module.exports = {
         //     'bold': ['Gotham'],
         // },
         extend: {
-            colors: {
-                link: {
-                    DEFAULT: '#3182ce',
-                    'hover': '#63b3ed',
-                }
-            },
             fontSize: {
                 xxs: '0.675rem',
             },

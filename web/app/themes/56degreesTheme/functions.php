@@ -23,6 +23,7 @@ View::$view_dir = get_stylesheet_directory() . '/templates/views';
 // require get_stylesheet_directory() . '/includes/utils/taxonomies/taxonomy-name.php';
 
 require get_stylesheet_directory() . '/includes/utils/cf7-button.php';
+require get_stylesheet_directory() . '/includes/utils/acf-options.php';
 require get_stylesheet_directory() . '/includes/utils/google-maps-api.php';
 require get_stylesheet_directory() . '/includes/utils/shortcodes.php';
 

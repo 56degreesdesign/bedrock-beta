@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 const local = require('./assets/js/utils/local-config');
+const critical = require('critical-css-generator');
+
 require('laravel-mix-versionhash');
 require('laravel-mix-tailwind');
 
@@ -10,6 +12,14 @@ mix.webpackConfig({
         "jquery": "jQuery",
     }
 });
+
+module.exports = {
+    resolve: {
+        alias: {
+            vue: mix.inProduction() ? 'vue/dist/vue.min.js' : 'vue/dist/vue.js'
+        }
+    }
+}
 
 if (local.proxy) {
     mix.browserSync({
@@ -24,22 +34,23 @@ if (local.proxy) {
 }
 
 mix.tailwind();
-mix.js('assets/js/app.js', 'js');
+mix.js('assets/js/app.js', 'js').vue();
 mix.sass('assets/scss/app.scss', 'css').options({
     processCssUrls: false
+});
+
+mix.options({
+    postCss: [
+        require('autoprefixer'),
+    ],
 });
 
 if (mix.inProduction()) {
     // mix.versionHash();
     mix.sourceMaps();
-} else {
-    // mix.browserSync({
-    //     watch: true,
-    //     proxy: 'http://accuweather.local',
-    //     files: [
-    //         "**/*.css",
-    //         "**/*.js",
-    //         "**/*.php"
-    //     ]
-    // });
+    critical.generate({
+        url: local.proxy,
+        path: 'critical.css',
+        viewport: true
+    });
 }

@@ -21,7 +21,7 @@ $text = $args['text'] ?? 'Placeholder Text';
     <div class="container">
         <div class="w-1/4">
             <h2 class="pb-8 text-2xl font-extrabold text-white sm:text-3xl">Image Component</h2>
-            <?php get_template_part( 'templates/partials/image', null, ['isPlaceholder' => true] ); ?>
+            <?php get_template_part( 'templates/partials/images/image', null, ['isPlaceholder' => true] ); ?>
         </div>
     </div>
 </section>

@@ -12,6 +12,20 @@ add_theme_support( 'post-thumbnails' );
 add_filter( 'xmlrpc_enabled', '__return_false' );
 remove_filter( 'the_excerpt', 'wpautop' );
 
+function seoUrl( $string )
+{
+	//Lower case everything
+	$string = strtolower( $string );
+	//Make alphanumeric (removes all other characters)
+	$string = preg_replace( "/[^a-z0-9_\s-]/", "", $string );
+	//Clean up multiple dashes or whitespaces
+	$string = preg_replace( "/[\s-]+/", " ", $string );
+	//Convert whitespaces and underscore to dash
+	$string = preg_replace( "/[\s_]/", "-", $string );
+
+	return $string;
+}
+
 /* Theme Menus. */
 function register_fs_menus() {
 	register_nav_menus(
@@ -46,6 +60,8 @@ function fsdegrees_login_logo_url_title() {
     return the_title();
 }
 add_filter( 'login_headertitle', 'fsdegrees_login_logo_url_title' );
+
+add_theme_support( 'title-tag' );
 
 function fsdegrees_login_logo() { ?>
     <style type="text/css">
@@ -167,35 +183,8 @@ function disable_emojis() {
    }
 
    // Allow SVG
-add_filter( 'wp_check_filetype_and_ext', function($data, $file, $filename, $mimes) {
-
-    global $wp_version;
-    if ( $wp_version !== '4.7.1' ) {
-       return $data;
-    }
-  
-    $filetype = wp_check_filetype( $filename, $mimes );
-  
-    return [
-        'ext'             => $filetype['ext'],
-        'type'            => $filetype['type'],
-        'proper_filename' => $data['proper_filename']
-    ];
-  
-  }, 10, 4 );
-  
-  function cc_mime_types( $mimes ){
+function cc_mime_types($mimes) {
     $mimes['svg'] = 'image/svg+xml';
     return $mimes;
-  }
-  add_filter( 'upload_mimes', 'cc_mime_types' );
-  
-  function fix_svg() {
-    echo '<style type="text/css">
-          .attachment-266x266, .thumbnail img {
-               width: 100% !important;
-               height: auto !important;
-          }
-          </style>';
-  }
-  add_action( 'admin_head', 'fix_svg' );
+}
+add_filter('upload_mimes', 'cc_mime_types');

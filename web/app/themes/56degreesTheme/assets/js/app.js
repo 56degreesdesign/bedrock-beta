@@ -1,7 +1,22 @@
+window.$ = window.jQuery = require('jquery');
+
 // LazyLoad - https://github.com/aFarkas/lazysizes
 import 'lazysizes'
 // import a plugin
 import 'lazysizes/plugins/parent-fit/ls.parent-fit'
+
+// GSAP
+// import {
+//     gsap,
+//     ScrollTrigger
+// } from "gsap/all";
+// import {
+//     DrawSVGPlugin
+// } from "gsap/DrawSVGPlugin";
+// gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
+
+// import Swiper bundle with all modules installed
+// import Swiper from 'swiper/bundle';
 
 // Theme Functions
 const fSmoothScroll = require('./utils/smooth-scroll')

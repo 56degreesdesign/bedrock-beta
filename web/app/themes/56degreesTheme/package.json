@@ -6,34 +6,42 @@
     "test": "tests"
   },
   "scripts": {
-    "webpack": "cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "dev": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "hmr": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "test": "cross-env nyc ava --verbose --serial",
-    "posttest": "cross-env nyc report --reporter=html"
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "production": "mix --production"
   },
   "author": "Phil Kurth <phil@philkurth.com.au>",
   "license": "MIT",
   "devDependencies": {
+    "autoprefixer": "^9.8.8",
     "browser-sync": "^2.26.12",
     "browser-sync-webpack-plugin": "^2.2.2",
     "cross-env": "^5.2.0",
     "fs": "0.0.1-security",
     "glob-all": "^3.2.1",
-    "laravel-mix": "^4.0.14",
+    "laravel-mix": "^6.0.31",
     "laravel-mix-purgecss": "^4.2.0",
     "laravel-mix-tailwind": "^0.1.0",
-    "laravel-mix-versionhash": "1.0.8",
+    "postcss": "^8.3.1",
     "resolve-url-loader": "2.3.1",
     "sass": "^1.26.11",
     "sass-loader": "7.*",
-    "tailwindcss": "^2.1.2",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16",
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
+    "critical-css-generator": "0.0.3",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "gsap": "npm:@gsap/business@^3.8.0",
+    "laravel-mix-alias": "^1.0.3",
+    "laravel-mix-versionhash": "^2.0.1",
     "lazysizes": "^5.3.2",
-    "swiper": "^6.8.2",
-    "vue": "^2.6.14"
+    "swiper": "^6.8.4",
+    "tailwind-hamburgers": "^1.1.1",
+    "vue": "^2.6.14",
+    "vue-loader": "^15.9.8",
+    "vue-slide-up-down": "^2.0.1"
   }
 }
