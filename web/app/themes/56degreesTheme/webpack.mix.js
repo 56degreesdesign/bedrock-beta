@@ -2,7 +2,6 @@ const mix = require('laravel-mix');
 const local = require('./assets/js/utils/local-config');
 const critical = require('critical-css-generator');
 
-require('laravel-mix-versionhash');
 require('laravel-mix-tailwind');
 
 mix.setPublicPath('./build');
