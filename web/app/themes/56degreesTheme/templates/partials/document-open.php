@@ -7,9 +7,8 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<title><?= wp_get_document_title() ?></title>
 		<script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, 'js');</script>
-		<?php ($_ENV['WP_ENV'] !== 'development') ? get_template_part('templates/partials/prod-tags') : ''; ?>
         <!-- Preload all fonts  -->
-        <!-- <link rel="preload" href="<?= false; //get_template_directory_uri(); ?>/assets/font/ModernEra-Medium.woff2" as="font" type="font/woff2" crossorigin> -->
+        <!-- <link rel="preload" href="<?= ''; //get_template_directory_uri(); ?>/assets/font/ModernEra-Medium.woff2" as="font" type="font/woff2" crossorigin> -->
 		<!-- Critical CSS -->
         <style id="critical-css"><?= file_get_contents( get_template_directory() . '/critical.css'); ?></style>
         <?php wp_head() ?>

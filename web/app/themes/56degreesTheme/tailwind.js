@@ -1,7 +1,4 @@
-const mix = require('laravel-mix');
-
 module.exports = {
-    mode: (mix.inProduction()) ? 'jit' : '',
     future: {
         removeDeprecatedGapUtilities: true,
         purgeLayersByDefault: true,
@@ -9,19 +6,11 @@ module.exports = {
     corePlugins: {
         container: false
     },
-    purge: {
-        content: [
-            './*.php',
-            './templates/**/*.php',
-            './build/js/**/*.js',
-        ],
-        options: {
-            safelist: [],
-            blocklist: [],
-            keyframes: true,
-            fontFace: true,
-        },
-    },
+    content: [
+        // './*.php',
+        './templates/**/*.php',
+        './build/js/*.js',
+    ],
     theme: {
         // colors: {
         //     // Base colors
@@ -49,20 +38,7 @@ module.exports = {
             },
         }
     },
-    variants: {
-        textColor: ['responsive', 'hover', 'focus', 'visited'],
-    },
     plugins: [
-        ({
-            addUtilities
-        }) => {
-            const utils = {
-                '.translate-x-half': {
-                    transform: 'translateX(50%)',
-                },
-            };
-            addUtilities(utils, ['responsive'])
-        },
         function ({
             addComponents
         }) {
@@ -74,18 +50,6 @@ module.exports = {
                     marginRight: 'auto',
                     paddingLeft: '2rem',
                     paddingRight: '2rem',
-                    // '@screen sm': {
-                    //   maxWidth: '640px',
-                    // },
-                    // '@screen md': {
-                    //   maxWidth: '768px',
-                    // },
-                    // '@screen lg': {
-                    //   maxWidth: '1024px',
-                    // },
-                    // '@screen xl': {
-                    //   maxWidth: '1280px',
-                    // },
                 }
             })
         }

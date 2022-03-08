@@ -9,7 +9,10 @@ mix.setPublicPath('./build');
 mix.webpackConfig({
     externals: {
         "jquery": "jQuery",
-    }
+    },
+    output: {
+        publicPath: '/wp-content/themes/56degreesTheme/build/',
+    },
 });
 
 module.exports = {
@@ -20,17 +23,7 @@ module.exports = {
     }
 }
 
-if (local.proxy) {
-    mix.browserSync({
-        proxy: local.proxy,
-        injectChanges: true,
-        open: false,
-        files: [
-            'build/**/*.{css,js}',
-            'templates/**/*.php'
-        ]
-    });
-}
+
 
 mix.tailwind();
 mix.js('assets/js/app.js', 'js').vue();
@@ -43,6 +36,18 @@ mix.options({
         require('autoprefixer'),
     ],
 });
+
+if (local.proxy) {
+    mix.browserSync({
+        proxy: local.proxy,
+        injectChanges: true,
+        open: false,
+        files: [
+            'build/**/*.{css,js}',
+            'templates/**/*.php'
+        ]
+    });
+}
 
 if (mix.inProduction()) {
     // mix.versionHash();
