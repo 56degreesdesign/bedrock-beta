@@ -11,6 +11,7 @@ mix.webpackConfig({
         "jquery": "jQuery",
     },
     output: {
+        chunkFilename: 'js/[name].bundle.min.js?h=[chunkhash]',
         publicPath: '/wp-content/themes/56degreesTheme/build/',
     },
 });
