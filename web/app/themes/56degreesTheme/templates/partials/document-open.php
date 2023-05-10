@@ -5,7 +5,9 @@
 		<meta name="viewport"
 		      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title><?= wp_get_document_title() ?></title>
+        <?php if ( !function_exists('yoast_breadcrumb') ) : ?>
+            <title><?= wp_get_document_title(); ?></title>
+        <?php endif; ?>
 		<script>document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/, 'js');</script>
         <!-- Preload all fonts  -->
         <!-- <link rel="preload" href="<?= ''; //get_template_directory_uri(); ?>/assets/font/ModernEra-Medium.woff2" as="font" type="font/woff2" crossorigin> -->
