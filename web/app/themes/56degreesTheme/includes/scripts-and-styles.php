@@ -10,6 +10,12 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_register_style( 'app', AssetResolver::resolve( 'css/app.css' ), [], $ctime );
 	wp_register_script( 'app', AssetResolver::resolve( 'js/app.js' ), [], $jtime, true );
 
+    wp_dequeue_style( 'wp-block-library' );
+    wp_dequeue_style( 'wp-block-library-theme' );
+    wp_dequeue_style( 'wc-blocks-style' ); // Remove WooCommerce block CSS
+    wp_dequeue_style( 'classic-theme-styles' );
+    wp_dequeue_style( 'global-styles' );
+
 	// enqueue global assets
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_style( 'app' );
