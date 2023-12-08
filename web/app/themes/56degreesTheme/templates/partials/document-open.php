@@ -16,6 +16,19 @@
 
         <link rel="preload" href="<?= get_template_directory_uri(); ?>/build/css/app.css?ver=<?= filemtime(get_template_directory() . '/build/css/app.css' ); ?>" as="style" type="text/css">
         <link rel="preload" href="<?= get_template_directory_uri(); ?>/build/js/app.js?ver=<?= filemtime(get_template_directory() . '/build/js/app.js' ); ?>" as="script" type="text/javascript">
+
+         <?php
+            // Yoast SEO plugin is active. Now we remove the robots meta tag
+            if (str_contains(get_site_url(), 'dev2.56degrees.co.uk')) {
+                if ( in_array( 'wordpress-seo/wp-seo.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+                    add_filter( 'wpseo_robots', function() { return 'noindex, nofollow'; } );
+                }
+                else {
+                    echo '<meta name="robots" content="noindex, nofollow t">';
+                }
+            }
+        ?>
+                
         <?php wp_head() ?>
 	</head>
 	<body <?php body_class() ?>>
