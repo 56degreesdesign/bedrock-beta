@@ -24,7 +24,7 @@
                     add_filter( 'wpseo_robots', function() { return 'noindex, nofollow'; } );
                 }
                 else {
-                    echo '<meta name="robots" content="noindex, nofollow t">';
+                    echo '<meta name="robots" content="noindex, nofollow">';
                 }
             }
         ?>
