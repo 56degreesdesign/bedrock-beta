@@ -23,13 +23,9 @@ add_action( 'wp_enqueue_scripts', function () {
 
 } );
 
-function defer_parsing_of_js ( $url ) {
-
-    if( !is_admin() ) {
-        if ( FALSE === strpos( $url, '.js' ) ) return $url;
-        if ( strpos( $url, 'jquery.js' ) ) return $url;
-        return "$url' defer '";
-    } else { return $url;  }
-
+function defer_parsing_of_js ( $tag, $handle, $src ) {
+    if (is_admin()) return $tag;
+    if (strpos($handle, 'jquery.js')) return $tag;
+    return '<script src="' . $src . '" defer="defer" type="text/javascript"></script>' . "\n";
 }
-add_filter( 'clean_url', 'defer_parsing_of_js', 11, 1 );
+add_filter( 'script_loader_tag', 'defer_parsing_of_js', 10, 3 );
