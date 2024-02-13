@@ -10,6 +10,7 @@ const fSmoothScroll = require('./utils/smooth-scroll')
 import observeAndExecute from './utils/observe-and-execute';
 const ExampleModule = require('./components/example')
 const fCarousels = require('./components/carousels');
+// const fSelect = require('./components/select');
 // const fGsapController = require('./components/gsap-controller')
 // const fVueComponents = require('./components/vue-components');
 
@@ -17,6 +18,7 @@ const fCarousels = require('./components/carousels');
 jQuery(function ($) {
     fSmoothScroll()
     // fVueComponents.init()
+    // fSelect.init()
     ExampleModule()
     // fGsapController.init()
 
