@@ -22,9 +22,12 @@ function featuredImageToAcfImage($imageID) {
     }
 
     $res_image = str_replace(get_site_url().'/', ABSPATH, $res_image);
+    $alt = get_post_meta($imageID, '_wp_attachment_image_alt', true);
+    $title = get_the_title($imageID);
 
+    $image['title'] = $title;
     $image['url'] = $url;
-    $image['alt'] = '';
+    $image['alt'] = $alt;
     $image['mime_type'] = mime_content_type($res_image);
     $image['placeholder'] = $url;
     $image['sizes'] = [];
