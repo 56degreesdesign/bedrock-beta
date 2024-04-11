@@ -3,6 +3,8 @@ $image = $args['image'] ?? false;
 $class = $args['class'] ?? false;
 $imageClass = $args['imageClass'] ?? 'w-full';
 $placeholder = $args['isPlaceholder'] ?? false;
+$alt = $image['alt'] != '' ? $image['alt'] : $image['title'];
+
 if($image && !$placeholder) : ?>
 <picture class="block <?= $class; ?>">
     <?php if ( $image['mime_type'] != 'image/svg+xml' ) : ?>
@@ -25,13 +27,13 @@ if($image && !$placeholder) : ?>
             data-expand="-50" src="<?= $image['sizes']['placeholder']; ?>"             
             width="150"
             height="150"
-            data-src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>">
+            data-src="<?= $image['url']; ?>" alt="<?= $alt; ?>">
     <?php else : ?>
         <img class="lazyload fade-up <?= $imageClass; ?>" 
             data-expand="-50" src="<?= $image['url']; ?>"             
             width="150"
             height="150"
-            data-src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>">
+            data-src="<?= $image['url']; ?>" alt="<?= $alt; ?>">
     <?php endif; ?>
 </picture>
 

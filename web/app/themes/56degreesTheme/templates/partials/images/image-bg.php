@@ -4,6 +4,8 @@ $class = $args['class'] ?? false;
 $imageClass = $args['imageClass'] ?? false;
 $placeholder = $args['isPlaceholder'] ?? false;
 $image_position = $args['imgPosition'] ?? 'object-center';
+$alt = $image['alt'] != '' ? $image['alt'] : $image['title'];
+
 if($image && !$placeholder) : ?>
 <picture class="block absolute top-0 left-0 w-full h-full <?= $class; ?>">
     <?php if ( $image['mime_type'] != 'image/svg+xml' ) : ?>
@@ -26,13 +28,13 @@ if($image && !$placeholder) : ?>
             data-expand="-50" src="<?= $image['sizes']['placeholder']; ?>" 
             width="150"
             height="150"
-            data-src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>">
+            data-src="<?= $image['url']; ?>" alt="<?= $$alt; ?>">
     <?php else : ?>
         <img class="lazyload fade-up w-full h-full <?= $image_position; ?> object-cover absolute top-0 left-0 <?= $imageClass; ?>" 
             data-expand="-50" src="<?= $image['url']; ?>" 
             width="150"
             height="150"
-            data-src="<?= $image['url']; ?>" alt="<?= $image['alt']; ?>">
+            data-src="<?= $image['url']; ?>" alt="<?= $alt; ?>">
     <?php endif; ?>
 </picture>
 
