@@ -19,7 +19,7 @@ module.exports = function () {
             // Check is element on the page
             if ( document.querySelector(href) ) {
                 let offsetTop = document.querySelector(href)?.getBoundingClientRect().top - window.pageYOffset;
-                offsetTop = header ? ( offsetTop - header.getBoundingClientRect().height) : offsetTop;
+                offsetTop = header ? ( offsetTop + header.getBoundingClientRect().height) : offsetTop;
 
                 scroll({
                     top: offsetTop,
