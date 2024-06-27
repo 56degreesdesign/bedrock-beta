@@ -1,22 +1,36 @@
-module.exports = function observeAndExecute(selector, callback, disconnect = false) {
-    const elementsToObserve = document.querySelectorAll(selector);
-    if ( !elementsToObserve.length ) return;
-    
+export default function observeAndExecute(selectorOrElements, options = {
+    callback: false,
+    disconnect: false,
+    observerOptions: {}
+}) {
+    let elementsToObserve;
+
+    if (typeof selectorOrElements === 'string') {
+        elementsToObserve = Array.from(document.querySelectorAll(selectorOrElements));
+    } else if (selectorOrElements instanceof Element) {
+        elementsToObserve = [selectorOrElements];
+    } else {
+        elementsToObserve = selectorOrElements;
+    }
+
+    if (!elementsToObserve.length) return;
+
     const observer = new IntersectionObserver(entries => {
         for (const entry of entries) {
             if (entry.isIntersecting) {
-                if ( disconnect ) {
+                if (options.disconnect) {
                     observer.disconnect();
-                }
-                else {
+                } else {
                     observer.unobserve(entry.target);
                 }
 
-                callback(entry.target);
+                if (options.callback) {
+                    options.callback(entry.target);
+                }
             }
         }
-    });
-    
+    }, options.observerOptions);
+
     elementsToObserve.forEach(element => {
         observer.observe(element);
     });

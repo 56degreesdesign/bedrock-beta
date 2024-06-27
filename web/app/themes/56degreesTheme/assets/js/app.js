@@ -22,7 +22,8 @@ jQuery(function ($) {
     ExampleModule()
     // fGsapController.init()
 
-    observeAndExecute(".swiper", () => {
-        fCarousels.init();
-    }, true);
+    observeAndExecute(".swiper", {
+        callback: () => fCarousels.init(),
+        disconnect: true,
+    })
 })
