@@ -3,7 +3,7 @@ export default class CustomSelect {
         this.element = element;
         this.afterElement = options?.afterElement ?? "";
         this.label = options?.label ?? false;
-        this.value = options?.value ?? false;
+        this.multiselect = this.element.getAttribute("multiple") ?? false;
 
         if ( this.element ) {
             this.createElements();
@@ -13,18 +13,18 @@ export default class CustomSelect {
     }
 
     createElements() {
-        this.select = this.createDivWithClass("custom-select");
+        this.select = this.createDivWithClass("custom-select", (this.multiselect ? "multi-select" : "single-select"));
         this.element.style.display = "none";
         this.element.parentNode.insertBefore(this.select, this.element.nextSibling);
         this.select.appendChild(document.createElement("span"));
         this.select.innerHTML += this.afterElement;
-
+        
         this.setSelectLabel(this.label)
     }
 
-    createDivWithClass(className) {
+    createDivWithClass(...className) {
         const divElement = document.createElement("div");
-        divElement.classList.add(className);
+        divElement.classList.add(...className);
         return divElement;
     }
 
@@ -34,8 +34,9 @@ export default class CustomSelect {
     }
 
     createSelectContent() {
+        
         if ( this.select.classList.contains("active") ) return;
-        this.selectContent = this.createUlWithClass("custom-select-content");
+        this.selectContent = this.createUlWithClass("custom-select-content", (this.multiselect ? "multi-select" : "single-select"));
         document.body.appendChild(this.selectContent);
 
         this.setPositionForSelectContent();
@@ -46,9 +47,9 @@ export default class CustomSelect {
         this.selectContent.addEventListener("click", e => this.handleSelectContentClick(e));
     }
 
-    createUlWithClass(className) {
+    createUlWithClass(...className) {
         const ulElement = document.createElement("ul");
-        ulElement.classList.add(className);
+        ulElement.classList.add(...className);
         return ulElement;
     }
 
@@ -62,14 +63,16 @@ export default class CustomSelect {
     }
 
     closeOutSide() {
-        const handleClose = () => {
-            this.close();
-            document.removeEventListener("click", handleClose);
+        const handleClose = (e) => {
+            if ( (this.multiselect && !document.querySelector(".custom-select-content").contains(e.target)) || !this.multiselect ) {
+                this.close();
+                document.removeEventListener("click", handleClose);   
+            }
         }
 
         setTimeout(() => { document.addEventListener("click", handleClose) }, 10);
     }
-
+    
     close() {
         this.selectContent.remove();
         this.select.classList.remove("active");
@@ -82,8 +85,48 @@ export default class CustomSelect {
     }
 
     handleSelectContentClick(e) {
-        this.setSelectValue(e.target.dataset.value);
-        this.setSelectLabel(e.target.textContent);
+        const value = e.target.dataset.value;
+        if ( typeof value === "undefined") return;
+        
+        if ( this.multiselect ) {
+            const selectedList = [];
+            
+            this.element.querySelectorAll("option").forEach(option => {
+                if ( value === option.value ) {
+                    if ( option.getAttribute("selected") === "selected" ) {
+                        option.removeAttribute("selected");
+                        e.target.classList.remove("selected");
+                    }
+                    else {
+                        option.setAttribute("selected", "selected");
+                        e.target.classList.add("selected");
+                    }
+                }
+                
+                if ( option.getAttribute("selected") === "selected" ) {
+                    selectedList.push(option.value);
+                }
+            })
+            
+            this.setSelectLabel(selectedList.join(", "));
+        }
+        else {
+            this.setSelectLabel(e.target.textContent);
+            this.element.value = value;
+            this.element.querySelectorAll("option").forEach(option => {
+                if ( value === option.value ) {
+                    option.setAttribute("selected", "selected");
+                }
+                else {
+                    option.removeAttribute("selected")
+                }
+            })
+        }
+        
+        let eventInput = new Event('input', { bubbles: true });
+        let eventChange = new Event('change', { bubbles: true });
+        this.element.dispatchEvent(eventInput);
+        this.element.dispatchEvent(eventChange);
     }
 
     createOptionElement(option) {
@@ -92,30 +135,20 @@ export default class CustomSelect {
         optionElement.textContent = option.textContent;
         optionElement.dataset.value = option.value;
 
-        if (option.value === this.element.value) optionElement.classList.add("selected");
-
+        if (option.getAttribute("selected") === "selected") optionElement.classList.add("selected");
         this.selectContent.appendChild(optionElement);
     }
-
-    setSelectValue(value) {
-        this.element.value = value;
-        this.element.querySelectorAll("option").forEach(option => {
-            if ( value === option.value ) {
-                option.setAttribute("selected", "selected");
-            }
-            else {
-                option.removeAttribute("selected")
-            }
-        })
-
-        let eventInput = new Event('input', { bubbles: true });
-        let eventChange = new Event('change', { bubbles: true });
-        this.element.dispatchEvent(eventInput);
-        this.element.dispatchEvent(eventChange);
-    }
-
+    
     setSelectLabel(label) {
-        this.select.querySelector("span").innerHTML = label;
+        if ( label === "" ) {
+            this.select.querySelector("span").innerHTML = this.label;
+        }
+        else if ( label === false ) {
+            this.select.querySelector("span").innerHTML = "Please select";
+        }
+        else {
+            this.select.querySelector("span").innerHTML = label;   
+        }
     }
 
     getCurrentSelectedElement() {
@@ -123,19 +156,29 @@ export default class CustomSelect {
     }
 
     setDefaultState() {
-        if ( this.value )
-            this.setSelectValue(this.value);
-
         let label = "";
+        const selectedList = [];
 
-        if ( this.label ) {
-            label = this.label
+        for (const option of this.element.querySelectorAll("option")) {
+            if ( option.getAttribute("selected") === "selected" ) {
+                selectedList.push(option.value);
+            }
         }
-        else if ( this.getCurrentSelectedElement()?.textContent ) {
-            label = this.getCurrentSelectedElement()?.textContent;
+        
+        if ( selectedList.length ) {
+            label = selectedList.join(", ");
         }
         else {
-            label = this.element.querySelector("option").textContent;
+            if ( this.label ) {
+                label = this.label;
+            }
+            else if ( this.getCurrentSelectedElement()?.textContent ) {
+                label = this.getCurrentSelectedElement()?.textContent;
+            }
+            else {
+                label = this.element.querySelector("option").textContent;
+                this.element.querySelector("option").setAttribute("selected", "selected");
+            }
         }
 
         this.setSelectLabel(label);
