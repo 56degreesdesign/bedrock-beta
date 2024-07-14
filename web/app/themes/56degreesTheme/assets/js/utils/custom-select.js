@@ -1,9 +1,11 @@
 export default class CustomSelect {
+
     constructor(element, options) {
         this.element = element;
         this.afterElement = options?.afterElement ?? "";
         this.label = options?.label ?? false;
         this.multiselect = this.element.getAttribute("multiple") ?? false;
+        this.parentEvent = options?.parentEvent ?? true;
 
         if ( this.element ) {
             this.createElements();
@@ -18,7 +20,7 @@ export default class CustomSelect {
         this.element.parentNode.insertBefore(this.select, this.element.nextSibling);
         this.select.appendChild(document.createElement("span"));
         this.select.innerHTML += this.afterElement;
-        
+
         this.setSelectLabel(this.label)
     }
 
@@ -34,7 +36,7 @@ export default class CustomSelect {
     }
 
     createSelectContent() {
-        
+
         if ( this.select.classList.contains("active") ) return;
         this.selectContent = this.createUlWithClass("custom-select-content", (this.multiselect ? "multi-select" : "single-select"));
         document.body.appendChild(this.selectContent);
@@ -66,13 +68,21 @@ export default class CustomSelect {
         const handleClose = (e) => {
             if ( (this.multiselect && !document.querySelector(".custom-select-content").contains(e.target)) || !this.multiselect ) {
                 this.close();
-                document.removeEventListener("click", handleClose);   
+                document.removeEventListener("click", handleClose);
+
+                if ( this.parentEvent )
+                    window.parent.removeEventListener("click", handleClose);
             }
         }
 
-        setTimeout(() => { document.addEventListener("click", handleClose) }, 10);
+        setTimeout(() => {
+            document.addEventListener("click", handleClose);
+
+            if ( this.parentEvent )
+                window.parent.addEventListener("click", handleClose);
+        }, 10);
     }
-    
+
     close() {
         this.selectContent.remove();
         this.select.classList.remove("active");
@@ -87,10 +97,10 @@ export default class CustomSelect {
     handleSelectContentClick(e) {
         const value = e.target.dataset.value;
         if ( typeof value === "undefined") return;
-        
+
         if ( this.multiselect ) {
             const selectedList = [];
-            
+
             this.element.querySelectorAll("option").forEach(option => {
                 if ( value === option.value ) {
                     if ( option.getAttribute("selected") === "selected" ) {
@@ -102,12 +112,12 @@ export default class CustomSelect {
                         e.target.classList.add("selected");
                     }
                 }
-                
+
                 if ( option.getAttribute("selected") === "selected" ) {
                     selectedList.push(option.value);
                 }
             })
-            
+
             this.setSelectLabel(selectedList.join(", "));
         }
         else {
@@ -122,7 +132,7 @@ export default class CustomSelect {
                 }
             })
         }
-        
+
         let eventInput = new Event('input', { bubbles: true });
         let eventChange = new Event('change', { bubbles: true });
         this.element.dispatchEvent(eventInput);
@@ -138,7 +148,7 @@ export default class CustomSelect {
         if (option.getAttribute("selected") === "selected") optionElement.classList.add("selected");
         this.selectContent.appendChild(optionElement);
     }
-    
+
     setSelectLabel(label) {
         if ( label === "" ) {
             this.select.querySelector("span").innerHTML = this.label;
@@ -147,7 +157,7 @@ export default class CustomSelect {
             this.select.querySelector("span").innerHTML = "Please select";
         }
         else {
-            this.select.querySelector("span").innerHTML = label;   
+            this.select.querySelector("span").innerHTML = label;
         }
     }
 
@@ -164,7 +174,7 @@ export default class CustomSelect {
                 selectedList.push(option.value);
             }
         }
-        
+
         if ( selectedList.length ) {
             label = selectedList.join(", ");
         }
