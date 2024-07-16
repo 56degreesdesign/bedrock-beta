@@ -5,7 +5,7 @@ $image_mobile = $args['imageMobile'] ?? false;
 
 // classes
 $class = $args['class'] ?? false;
-$imageClass = $args['imageClass'] ?? '';
+$imageClass = $args['imageClass'] ?? 'w-full';
 
 // loading and display
 $placeholder = $args['isPlaceholder'] ?? false;
