@@ -19,7 +19,7 @@
 
          <?php
             // Yoast SEO plugin is active. Now we remove the robots meta tag
-            if (str_contains(get_site_url(), 'dev2.56degrees.co.uk')) {
+            if (str_contains(get_site_url(), '56degrees-dev.co.uk')) {
                 if ( in_array( 'wordpress-seo/wp-seo.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
                     add_filter( 'wpseo_robots', function() { return 'noindex, nofollow'; } );
                 }
