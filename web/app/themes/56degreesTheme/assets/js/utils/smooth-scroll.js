@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = function ($) {
     const links = document.querySelectorAll('a[href*="#"]:not([href="#"]):not([href="#0"])'),
         header = document.querySelector(".header");
 
@@ -11,21 +11,24 @@ module.exports = function () {
 
         // Check in anchor is another page
         if ( href.includes('/#') ) {
-            href = href.replace('/#', '#')
+            if ( href.split("#")[0] === window.location.href.split("#")[0] ) {
+                e.preventDefault();
+                moveTo(href.slice(href.indexOf("#")));
+            }
         }
         else {
             e.preventDefault();
+            moveTo(href);
+        }
+    }
 
-            // Check is element on the page
-            if ( document.querySelector(href) ) {
-                let offsetTop = document.querySelector(href)?.getBoundingClientRect().top + window.pageYOffset;
-                offsetTop = header ? ( offsetTop - header.getBoundingClientRect().height) : offsetTop;
+    function moveTo(href) {
+        if ( document.querySelector(href) ) {
+            const element = document.querySelector(href);
+            let offsetTop = element.getBoundingClientRect().top + window.scrollY;
+            // offsetTop = header ? ( offsetTop - header.getBoundingClientRect().height) : offsetTop;
 
-                scroll({
-                    top: offsetTop,
-                    behavior: "smooth"
-                });
-            }
+            scrollTo({top: offsetTop, behavior: "smooth"});
         }
     }
 };
