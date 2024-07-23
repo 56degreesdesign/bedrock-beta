@@ -1,3 +1,4 @@
+const {h} = require("vue");
 module.exports = function () {
     const links = document.querySelectorAll('a[href*="#"]:not([href="#"]):not([href="#0"])'),
         header = document.querySelector(".header");
@@ -8,16 +9,24 @@ module.exports = function () {
 
     function clickHandler(e) {
         let href = this.getAttribute("href");
-
+        let url = null;
+        
         try {
-            const url = new URL(href);
+            url = new URL(href);
+        } catch (e) {}
+        
+        if ( url ) {
             const siteUrl = window.location;
 
             if ( siteUrl.origin === url.origin && siteUrl.pathname === url.pathname ) {
                 e.preventDefault();
                 moveTo(url.hash);
             }
-        } catch (e) {}
+        }
+        else if ( href.includes("#") ) {
+            e.preventDefault();
+            moveTo(href);
+        }
     }
 
     function moveTo(hash) {
