@@ -8,10 +8,9 @@ module.exports = function () {
 
     function clickHandler(e) {
         let href = this.getAttribute("href");
-        let url = null;
         
         try {
-            url = new URL(href, window.location.href);
+            const url = new URL(href, window.location.href);
             const siteUrl = window.location;
 
             if ( siteUrl.origin === url.origin && siteUrl.pathname === url.pathname ) {
