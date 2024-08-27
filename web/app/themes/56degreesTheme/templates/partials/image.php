@@ -12,6 +12,7 @@ $placeholder = $args['isPlaceholder'] ?? false;
 $lazy = $args['lazy'] ?? true;
 $bg = isset($args['bg']) ? 'absolute left-0 top-0 w-full h-full' : '';
 $fetchpriority = $args['fetch'] ?? null;
+$expand = $args['expand'] ?? -50;
 
 // Alternative text
 $alt = isset($image['alt']) ? $image['alt'] : $image['title'] ?? '';
@@ -90,14 +91,14 @@ if ( $image && !$placeholder ) :
         <?php endif; ?>
 
         <img <?= $fetchpriority ? 'fetchpriority="'. $fetchpriority .'"' : null; ?> class="lazyload fade-up <?= $imageClass; ?> <?= $bg ? 'absolute left-0 top-0 w-full h-full object-center object-cover' : null; ?>"
-             data-expand="-50" src="<?= $image['sizes']['placeholder']; ?>"
+             data-expand="<?= $expand; ?>" src="<?= $image['sizes']['placeholder']; ?>"
              width="150"
              height="150"
             <?= $lazy ? 'loading="lazy"' : null; ?>
              data-src="<?= $image['url']; ?>" alt="<?= $alt; ?>">
     <?php else : ?>
         <img <?= $fetchpriority ? 'fetchpriority="'. $fetchpriority .'"' : null; ?> class="lazyload fade-up <?= $imageClass; ?> <?= $bg ? 'absolute left-0 top-0 w-full h-full object-center object-cover' : null; ?>"
-             data-expand="-50" src="<?= $image['url']; ?>"
+             data-expand="<?= $expand; ?>" src="<?= $image['url']; ?>"
              width="150"
              height="150"
             <?= $lazy ? 'loading="lazy"' : null; ?>
@@ -107,7 +108,7 @@ if ( $image && !$placeholder ) :
 <?php elseif ( $placeholder ) : ?>
 <picture class="block <?= $class; ?> <?= $bg; ?>">
     <img class="lazyload fade-up <?= $imageClass; ?> <?= $bg ? 'absolute left-0 top-0 w-full h-full object-center object-cover' : null; ?>"
-         data-expand="-50" src="https://picsum.photos/300/200?random=1"
+         data-expand="<?= $expand; ?>" src="https://picsum.photos/300/200?random=1"
          data-src="https://picsum.photos/1220/800?random=1" alt="Img Alt">
 </picture>
 <?php endif; ?>
