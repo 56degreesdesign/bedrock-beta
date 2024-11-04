@@ -23,9 +23,24 @@ add_action( 'wp_enqueue_scripts', function () {
 
 } );
 
-function defer_parsing_of_js ( $tag, $handle, $src ) {
-    if (is_admin()) return $tag;
-    if (strpos($handle, 'jquery.js')) return $tag;
+function defer_parsing_of_js( $tag, $handle, $src ) {
+    $excluded_urls = [
+        'wp-includes/js/dist/hooks.min.js',
+        'contact-form-7/includes/js/index.js',
+        'recaptcha',
+    ];
+
+    if (is_admin()) {
+        return $tag;
+    }
+
+    foreach ($excluded_urls as $url) {
+        if (strpos($src, $url) !== false) {
+            return $tag;
+        }
+    }
+
     return '<script src="' . $src . '" defer="defer" type="text/javascript"></script>' . "\n";
 }
+
 add_filter( 'script_loader_tag', 'defer_parsing_of_js', 10, 3 );
